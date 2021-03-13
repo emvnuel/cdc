@@ -67,7 +67,6 @@ public class Book {
     @JoinColumn(name = "author_id")
     private Author author;
 
-    @Default
     public Book(@NotEmpty String title,
                 @NotEmpty @Length(max = 500) String summary,
                 String contents,

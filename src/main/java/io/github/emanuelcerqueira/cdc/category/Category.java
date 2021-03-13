@@ -24,7 +24,6 @@ public class Category {
     @NotEmpty
     private String name;
 
-    @Default
     public Category(@NotEmpty String name) {
         this.name = name;
     }

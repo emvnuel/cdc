@@ -40,7 +40,6 @@ public class Author {
     @CreatedDate
     private LocalDateTime createdAt;
 
-    @Default
     public Author(@NotEmpty String name,
                   @NotEmpty @Email String email,
                   @NotEmpty @Length(max = 400) String bio) {

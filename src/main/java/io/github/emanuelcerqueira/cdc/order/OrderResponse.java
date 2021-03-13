@@ -16,6 +16,7 @@ public class OrderResponse {
     private String address;
     private List<CartItemResponse> items;
     private BigDecimal total;
+    private BigDecimal discounts;
     private BigDecimal totalFinal;
 
 }

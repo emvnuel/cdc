@@ -22,7 +22,6 @@ public interface OrderMapper {
             @Mapping(target = "address.state", source = "orderRequest.stateId"),
             @Mapping(target = "address.phoneNumber", source = "orderRequest.phoneNumber"),
             @Mapping(target = "address.zipCode", source = "orderRequest.zipCode"),
-            @Mapping(target = "coupon", source = "orderRequest.coupon")
     })
     Order mapToOrder(OrderRequest orderRequest);
 

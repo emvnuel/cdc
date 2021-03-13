@@ -7,6 +7,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/orders")
@@ -26,7 +27,7 @@ public class OrderController {
     @PostMapping
     public ResponseEntity<OrderResponse> save(@Valid @RequestBody OrderRequest orderRequest) {
         Order order = orderMapper.mapToOrder(orderRequest);
-        Order persistedOrder = orderService.save(order);
+        Order persistedOrder = orderService.save(order, Optional.ofNullable(orderRequest.getCoupon()));
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(persistedOrder.getId()).toUri();

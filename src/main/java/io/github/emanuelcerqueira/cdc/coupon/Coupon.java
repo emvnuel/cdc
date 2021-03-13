@@ -36,7 +36,6 @@ public class Coupon {
         return expirationDate.isBefore(LocalDate.now());
     }
 
-    @Default
     public Coupon(String code, BigDecimal percentageDiscount, LocalDate expirationDate) {
         this.code = code;
         this.percentageDiscount = percentageDiscount;
@@ -48,4 +47,5 @@ public class Coupon {
         this.percentageDiscount = couponUpdate.getPercentageDiscount();
         this.expirationDate = couponUpdate.getExpirationDate();
     }
+
 }

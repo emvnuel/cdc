@@ -40,11 +40,11 @@ public class OrderInsertValidator implements ConstraintValidator<OrderInsert, Or
 
             Optional<Coupon> couponOptional = this.couponRepository.findByCode(orderRequest.getCoupon());
 
-            if (couponOptional.isPresent()) {
-                Coupon coupon = couponOptional.get();
+            couponOptional.ifPresent(value -> {
+                Coupon coupon = value;
                 if (coupon.isExpired())
                     list.add(new FieldMessage("coupon", "The given coupon code is expired"));
-            }
+            });
 
         }
 

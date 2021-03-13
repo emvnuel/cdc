@@ -52,6 +52,10 @@ public class Order {
     private BigDecimal total;
 
     @NotNull
+    @DecimalMin(value = "0")
+    private BigDecimal discounts;
+
+    @NotNull
     @DecimalMin(value = "0.01")
     private BigDecimal totalFinal;
 
@@ -73,8 +77,7 @@ public class Order {
                  @NotEmpty String cpfCnpj,
                  @NotNull @Valid Address address,
                  @NotNull @DecimalMin(value = "0.01") BigDecimal total,
-                 @NotNull @Size(min = 1) @Valid List<CartItem> items,
-                 Coupon coupon) {
+                 @NotNull @Size(min = 1) @Valid List<CartItem> items) {
         this.email = email;
         this.name = name;
         this.surname = surname;
@@ -82,17 +85,15 @@ public class Order {
         this.address = address;
         this.total = total;
         this.items = items;
-        this.coupon = coupon;
-        this.totalFinal = calculateTotalFinal();
+        this.discounts = BigDecimal.ZERO;
+        this.totalFinal = this.total;
     }
 
-    private BigDecimal calculateTotalFinal() {
-        if (this.coupon == null) {
-            return this.total;
-        }
-        else {
-            return this.total.subtract(this.total.multiply(this.coupon.getPercentageDiscount()));
-        }
+    public void applyCoupon(Coupon coupon) {
+        Assert.isTrue(!coupon.isExpired(), "Cannot apply a expired coupon");
+        this.coupon = coupon;
+        this.discounts = this.total.multiply(this.coupon.getPercentageDiscount());
+        this.totalFinal = this.total.subtract(this.discounts);
     }
 
     private BigDecimal calculateTotal() {

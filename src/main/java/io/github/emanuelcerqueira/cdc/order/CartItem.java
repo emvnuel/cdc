@@ -39,14 +39,9 @@ public class CartItem {
         return book.getPrice().multiply(BigDecimal.valueOf(quantity));
     }
 
-    @Default
-    public CartItem(@NotNull Book book, @NotNull Order order, @Min(1) Integer quantity) {
+    public CartItem(@NotNull Book book, @Min(1) Integer quantity) {
         this.book = book;
-        this.order = order;
         this.quantity = quantity;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
-    }
 }
